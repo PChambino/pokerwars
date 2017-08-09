@@ -1,4 +1,13 @@
 defmodule Pokerwars.Hand do
+  def winning(hands) do
+    [handA, handB] = hands
+    [winning(handA, handB)]
+  end
+
+  def winning(handA, handB) do
+    handB
+  end
+
   def score(cards) do
     cards = Enum.sort(cards)
     calculate_score(cards)
