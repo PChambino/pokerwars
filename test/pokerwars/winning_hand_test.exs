@@ -25,4 +25,8 @@ defmodule Pokerwars.Hand.WinningTest do
       ["2s 3h 4c 7s Qd", "2s 3h 4c 7s Qs", "2s 3h 4c 7s Qc"]
     )
   end
+
+  test "higher pair wins lower pair" do
+    assert_winning_hands(["2s 3h 4c Qs Qd", "2s 3h 4c 7s 7d"], ["2s 3h 4c Qs Qd"])
+  end
 end
