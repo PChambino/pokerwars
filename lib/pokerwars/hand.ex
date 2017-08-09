@@ -3,7 +3,10 @@ defmodule Pokerwars.Hand do
   def winning(hands) do
     [handA, handB | rest] = hands
     winning_hands = winning(handA, handB)
-    winning(winning_hands ++ rest)
+    case winning_hands do
+      [handA, handB] -> [handA] ++ winning([handB] ++ rest)
+      [hand] -> winning([hand] ++ rest)
+    end
   end
 
   def winning(handA, handB) do
