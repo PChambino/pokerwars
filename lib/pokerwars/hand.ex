@@ -1,14 +1,16 @@
 defmodule Pokerwars.Hand do
+  def winning([hand]), do: [hand]
   def winning(hands) do
-    [handA, handB] = hands
-    winning(handA, handB)
+    [handA, handB | rest] = hands
+    winning_hands = winning(handA, handB)
+    winning(winning_hands ++ rest)
   end
 
   def winning(handA, handB) do
     case {score_index(handA), score_index(handB)} do
       {a, b} when a > b -> [handA]
       {a, b} when a < b -> [handB]
-      _ -> [handA, handB]
+      # _ -> [handA, handB]
     end
   end
 
