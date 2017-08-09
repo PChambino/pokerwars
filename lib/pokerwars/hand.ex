@@ -18,10 +18,10 @@ defmodule Pokerwars.Hand do
   end
 
   def winning_high_card(handA, handB) do
-    sortedHandA = Enum.sort(handA)
-    sorterHandB = Enum.sort(handB)
+    sortedHandA = handA |> Enum.sort |> Enum.reverse
+    sortedHandB = handB |> Enum.sort |> Enum.reverse
 
-    zipped_ranks = Enum.zip extract_ranks(sortedHandA), extract_ranks(sorterHandB)
+    zipped_ranks = Enum.zip extract_ranks(sortedHandA), extract_ranks(sortedHandB)
     ranks = Enum.find zipped_ranks, fn ({rankA, rankB}) ->
       cond do
         rankA > rankB -> true
