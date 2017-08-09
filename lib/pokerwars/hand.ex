@@ -1,11 +1,21 @@
 defmodule Pokerwars.Hand do
   def winning(hands) do
     [handA, handB] = hands
-    [winning(handA, handB)]
+    winning(handA, handB)
   end
 
   def winning(handA, handB) do
-    handB
+    case {score_index(handA), score_index(handB)} do
+      {a, b} when a > b -> [handA]
+      {a, b} when a < b -> [handB]
+      _ -> [handA, handB]
+    end
+  end
+
+  @score_rank [:high_card, :pair, :two_pair, :three_of_a_kind, :straight, :full_house, :flush, :four_of_a_kind, :straight_flush]
+
+  def score_index(cards) do
+    Enum.find_index @score_rank, fn(x) -> x == score(cards) end
   end
 
   def score(cards) do
