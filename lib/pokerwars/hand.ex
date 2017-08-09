@@ -10,7 +10,27 @@ defmodule Pokerwars.Hand do
     case {score_index(handA), score_index(handB)} do
       {a, b} when a > b -> [handA]
       {a, b} when a < b -> [handB]
-      # _ -> [handA, handB]
+      _ -> winning_high_card(handA, handB)
+    end
+  end
+
+  def winning_high_card(handA, handB) do
+    handA = Enum.sort(handA)
+    handB = Enum.sort(handB)
+
+    zipped_ranks = Enum.zip extract_ranks(handA), extract_ranks(handB)
+    ranks = Enum.find zipped_ranks, fn ({rankA, rankB}) ->
+      cond do
+        rankA > rankB -> true
+        rankA < rankB -> true
+        true -> false
+      end
+    end
+
+    case ranks do
+      {rankA, rankB} when rankA > rankB -> [handA]
+      {rankA, rankB} when rankA < rankB -> [handB]
+      _ -> [handA, handB]
     end
   end
 
